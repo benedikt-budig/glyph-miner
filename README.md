@@ -25,8 +25,7 @@ Glyph Miner comes with a Dockerfile for easy deployment and testing. Make sure
 you have installed a recent version of [Docker](https://www.docker.com/). First,
 check out the repository and build the Glyph Miner Docker image:
 
-    git clone git@gitlab2.informatik.uni-wuerzburg.de:beb78iu/histmaps.git
-    cd histmaps/docker
+    cd docker
     docker build -t glyphminer .
 
 You can run a new container based on this image using:
@@ -61,10 +60,10 @@ You will need a recent version of uwsgi. Get the newest version through PIP:
 Let nginx know that calls to the API will be handled by the python server by
 adding the following lines in /etc/nginx/sites-enabled/default:
 
-    root    /home/budig/histmaps/web
+    root    /home/<username>/glyph-miner/web
 
     location /api/ {
-        root /home/budig/histmaps/server;
+        root /home/<username>/glyph-miner/server;
         client_max_body_size 100M;
 
         include uwsgi_params;
@@ -76,12 +75,12 @@ Do not forget to restart nginx in order to make your changes work:
 `sudo service nginx restart`
 
 ### Installing Glyph Miner
-To get the latest version of the software, clone our git repository:
-`git clone -b synth --single-branch git@gitlab2.informatik.uni-wuerzburg.de:beb78iu/histmaps.git`
+To get the latest version of the software, clone the git repository:
+`git clone https://github.com/benedikt-budig/glyph-miner.git`
 
 Next, you need to compile the C++ library that handles the template matching:
 
-    cd histmaps/server
+    cd glyph-miner/server
     make standalone
 
 Last but not least, make sure the correct rights are set so that the server can
@@ -107,7 +106,7 @@ line 49.
 ### Starting it up
 You can start the python server using uwsgi using the following command:
 
-`/usr/local/bin/uwsgi --socket 127.0.0.1:9090 --chdir /home/budig/histmaps/server/ --wsgi-file /home/budig/histmaps/server/server.py --master --processes 4 --threads 2`
+`/usr/local/bin/uwsgi --socket 127.0.0.1:9090 --chdir /home/<username>/glyph-miner/server/ --wsgi-file /home/<username>/glyph-miner/server/server.py --master --processes 4 --threads 2`
 
 
 ## License
