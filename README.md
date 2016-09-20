@@ -20,10 +20,21 @@ and [Thomas van Dijk](http://www1.informatik.uni-wuerzburg.de/en/staff/dijk_thom
 University of Würzburg. The project is supported by Würzburg University Library
 and the [Kallimachos](http://kallimachos.de/) project.
 
-## Run it with Docker
-Glyph Miner comes with a Dockerfile for easy deployment and testing. Make sure
-you have installed a recent version of [Docker](https://www.docker.com/). First,
-check out the repository and build the Glyph Miner Docker image:
+## Quick Start: Run it with Docker
+Glyph Miner is available through Docker for easy deployment and testing. Make sure
+you have installed a recent version of [Docker](https://www.docker.com/).
+
+### Recommended: Using Docker Hub
+This is the fastest way to get the system running on your machine. Just pull our
+official build from Docker Hub:
+
+    docker pull glyphminer/glyphminer
+    docker run -p 8080:80 -t -i glyphminer/glyphminer
+
+That's it! The Glyph Miner interface is now available at `http://localhost:8080`.
+
+### Using the shipped Dockerfile
+First, check out the repository and build the Glyph Miner Docker image:
 
     cd docker
     docker build -t glyphminer .
@@ -42,7 +53,7 @@ persistant and will be **lost** once the container is stopped.
 ## Manual Installation
 The Glyph Miner software is preferably installed on a Linux machine. This guide
 shows how to install the software on Ubuntu 14.04 LTS; for other distributions,
-the process should be similar.
+the process is similar.
 
 ### Required Packages
 First, make sure you have the following packages installed on your system:
