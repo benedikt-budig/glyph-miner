@@ -1,0 +1,37 @@
+.nav ul.dropdown-menu {
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.nav .dropdown-menu a {
+  padding: 5px 10px;
+}
+
+.nav .dropdown .media {
+  width: 400px;
+  display: flex;
+}
+
+.nav .dropdown .media-left {
+  flex-grow: 1;
+  flex-basis: 1px;
+}
+
+.nav .dropdown .media-body {
+  flex-grow: 2;
+  flex-basis: 1px;
+}
+
+.nav .dropdown .media-left img {
+  width: 100%;
+}
+
+.nav .dropdown .media-body h4 {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+a.dropdown-toggle {
+  cursor: pointer;
+}

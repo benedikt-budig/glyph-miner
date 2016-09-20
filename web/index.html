@@ -1,0 +1,116 @@
+<!doctype html>
+<html ng-app="glyphMinerApp">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.css" type="text/css">
+
+    <link rel="stylesheet" href="css/common.css" type="text/css">
+    <link rel="stylesheet" href="css/nav.css" type="text/css">
+    <link rel="stylesheet" href="css/overview.css" type="text/css">
+    <link rel="stylesheet" href="css/viewer.css" type="text/css">
+    <link rel="stylesheet" href="css/active-learner.css" type="text/css">
+    <link rel="stylesheet" href="css/glyphs.css" type="text/css">
+    <link rel="stylesheet" href="css/page-creator.css" type="text/css">
+
+    <title>Glyph Miner</title>
+  </head>
+  <body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-default" style="border-radius: 0;">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <span class="navbar-brand"><img src="/img/UB-Logo.png" height="20"></span>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li ng-class="{ active: $state.includes('overview') }"><a ui-sref="overview">Document Overview</a></li>
+            <li ng-class="{ active: $state.includes('glyphs') }"><a ui-sref="glyphs">Glyph Library</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li ng-class="{ active: $state.includes('about') }"><a ui-sref="about">About</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="alert-container">
+      <div ng-repeat="alert in alerts track by $index" class="alert alert-danger" role="alert" ng-cloak>
+        <button type="button" class="close" ng-click="alert.discard()"><span aria-hidden="true">&times;</span></button>
+        <span id="success-message"><strong>Error.</strong> {{ alert.msg }}&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- Main View -->
+    <div class="container-fluid" ui-view></div>
+
+    <!-- AngularJS and Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.13/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.7/angular-filter.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/5.0.9/ng-file-upload.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/5.0.9/ng-file-upload-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2014-11-29/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.6.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+
+    <!-- custom scripts -->
+    <script src="app/app.module.js"></script>
+    <script src="app/app.config.js"></script>
+    <script src="app/app.route.js"></script>
+
+    <script src="app/app.core.module.js"></script>
+    <script src="app/services/document.service.js"></script>
+    <script src="app/services/template.service.js"></script>
+    <script src="app/services/label.service.js"></script>
+    <script src="app/services/page.service.js"></script>
+    <script src="app/services/error.service.js"></script>
+
+    <script src="app/overview/overview.module.js"></script>
+    <script src="app/overview/overview.routes.js"></script>
+    <script src="app/overview/document-list.controller.js"></script>
+    <script src="app/overview/document-crud.controller.js"></script>
+
+    <script src="app/viewer/viewer.module.js"></script>
+    <script src="app/viewer/viewer.routes.js"></script>
+    <script src="app/viewer/collection-document.controller.js"></script>
+    <script src="app/viewer/view.controller.js"></script>
+    <script src="app/viewer/template-control.controller.js"></script>
+
+    <script src="app/active-learner/active-learner.module.js"></script>
+    <script src="app/active-learner/active-learner.routes.js"></script>
+    <script src="app/active-learner/learning.controller.js"></script>
+    <script src="app/active-learner/tile.controller.js"></script>
+
+    <script src="app/glyphs/glyphs.module.js"></script>
+    <script src="app/glyphs/glyphs.routes.js"></script>
+    <script src="app/glyphs/document-column.controller.js"></script>
+    <script src="app/glyphs/template-column.controller.js"></script>
+    <script src="app/glyphs/glyph-list.controller.js"></script>
+    <script src="app/glyphs/glyph-download.controller.js"></script>
+
+    <script src="app/page-creator/page-creator.module.js"></script>
+    <script src="app/page-creator/page-creator.routes.js"></script>
+    <script src="app/page-creator/template-list.controller.js"></script>
+    <script src="app/page-creator/typesetting.controller.js"></script>
+    <script src="app/page-creator/page.controller.js"></script>
+    <script src="app/page-creator/fileread.directive.js"></script>
+
+  </body>
+</html>

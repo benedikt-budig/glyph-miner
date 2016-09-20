@@ -1,0 +1,24 @@
+<div class="main-col col-sm-3" id="collection-bar">
+  <h2>"{{ collectionDocuments.collection.title }}"</h2>
+  <div id="document-list">
+    <div class="media" ng-repeat="document in collectionDocuments.documents">
+      <div class="media-left">
+        <img class="media-object image-thumbnail" ng-src="/thumbnails/thumb-{{document.web_path_color}}">
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">{{ document.title }}</h4>
+        Size: {{document.w}} x {{document.h}}
+      </div>
+      <div class="media-right">
+        <div style="display: inline-block">
+          <button class="btn" ng-class="{'active' : document.selected, 'btn-primary': document.selected, 'btn-default': !document.selected }"
+                  ng-click="collectionDocuments.selectDocument(document)"
+             >Select</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main-col col-sm-6" ui-view="viewPanel"></div>
+<div class="main-col col-sm-3" ui-view="templateControl">

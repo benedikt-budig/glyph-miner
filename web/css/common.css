@@ -1,0 +1,26 @@
+html, body {
+  height: 100%;
+}
+
+.container-fluid {
+    height: calc(100% - 72px);
+}
+
+.alert-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 5px;
+  margin: 0 auto;
+  width: 50%;
+  z-index: 1000;
+}
+
+.alert {
+  padding: 9px;
+  margin-bottom: 10px;
+}
+
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}

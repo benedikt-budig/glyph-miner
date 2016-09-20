@@ -1,0 +1,98 @@
+hr.img-divider {
+  margin: 50px 0;
+  border: 0;
+}
+
+.img-col {
+  /*text-align: center;*/
+}
+
+.col-center {
+  text-align: center;
+}
+
+.col-right {
+  text-align: right;
+}
+
+.btn-custom {
+  margin-bottom: 15px;
+}
+
+.progress-bar-hidden {
+  visibility: hidden;
+}
+
+.controls {
+  margin-bottom: 20px;
+}
+
+img.front, img.back {
+  margin-bottom: 30px;
+}
+
+.flipcard {
+  position: relative;
+  perspective: 500px;
+}
+
+.flipcard.flip .front {
+  transform: rotateY(180deg);
+}
+
+.flipcard.flip .back {
+  transform: rotateY(0deg);
+}
+
+.flipcard .back {
+  transform: rotateY(-180deg);
+}
+
+.flipcard .front, .flipcard .back {
+  display: inline;
+  transition: all 0.15s ease-in;
+  backface-visibility: hidden;
+}
+
+.flipcard .back {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: all 0.15s ease-in;
+}
+
+#canvas {
+  width: 100%;
+  height: auto;
+  background-color: white;
+}
+
+#log {
+  max-height: 200px;
+}
+
+button img {
+  height: 20px;
+}
+
+.template-frame {
+  position: absolute;
+  left: 38%;
+  top: 32%;
+  height: 30px;
+  width: 30px;
+  display: block;
+  background: none;
+  border: 1px solid red;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* IE/Edge */
+  user-select: none;           /* non-prefixed version, currently
+                                  not supported by any browser */
+}
+

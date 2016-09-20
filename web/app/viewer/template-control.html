@@ -1,0 +1,112 @@
+<ul class="nav nav-tabs control-tabs" id="modecontrol">
+  <li ng-class="{active : activeTab == 'crop'}"><a href="" ng-click="activeTab = 'crop'" ng-init="activeTab = 'crop'">New template</a></li>
+  <li ng-class="{active : activeTab == 'templates'}"><a href="" ng-click="activeTab = 'templates'; loadTemplates()">Existing templates</a></li>
+</ul>
+
+<div id="control-col">
+  <div ng-show="activeTab == 'crop'" id="crop-tab">
+    <form class="form-horizontal" id="cropForm">
+      <p>Top Left: x = {{ tCtrl.templateCrop.tl.x }}, y = {{ tCtrl.templateCrop.tl.y }}</p>
+      <div class="thumbnail-container">
+        <img class="img-thumbnail img-responsive center-block big-thumbnail"
+             ng-if="tCtrl.templateCrop.br.x - tCtrl.templateCrop.tl.x > 0 && tCtrl.templateCrop.br.y - tCtrl.templateCrop.tl.y > 0"
+             ng-src="{{tCtrl.apiBasePath}}/images/{{tCtrl.document.id}}/crops?x1={{tCtrl.templateCrop.tl.x}}&y1={{tCtrl.templateCrop.tl.y}}&x2={{tCtrl.templateCrop.br.x}}&y2={{tCtrl.templateCrop.br.y}}">
+        <!--<p ng-if="!(tCtrl.templateCrop.br.x - tCtrl.templateCrop.tl.x > 0 && tCtrl.templateCrop.br.y - tCtrl.templateCrop.tl.y > 0)" style="margin: 0 10px; text-align: center">
+          <a ng-click="startDrawing()" type="button" href="">Pick a new template from the image</a>
+        </p>-->
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <p><span ng-class="{'text-danger' : ((tCtrl.templateCrop.br.x - tCtrl.templateCrop.tl.x) > 512)}">
+            Width&nbsp;= {{ tCtrl.templateCrop.br.x - tCtrl.templateCrop.tl.x }}&nbsp;px</span>,
+            Height&nbsp;= {{ tCtrl.templateCrop.br.y - tCtrl.templateCrop.tl.y }}&nbsp;px
+          </p>
+        </div>
+        <div class="col-sm-6">
+          <p class="pull-right">Bottom Right: x&nbsp;=&nbsp;{{ tCtrl.templateCrop.br.x }}, y&nbsp;=&nbsp;{{ tCtrl.templateCrop.br.y }}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputUnicodeChar" class="control-label col-sm-6">Character</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" id="inputUnicodeChar" ng-model="tCtrl.templateChar" placeholder="Unicode Character (optional)">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-6">
+          <button class="btn btn-default btn-block" ng-class="{active: tCtrl.nowPicking}" type="button" ng-click="tCtrl.nowPicking ? tCtrl.cancelPicking() : tCtrl.startPicking()">
+            <span class="glyphicon glyphicon-scissors"></span> Pick new template
+          </button>
+        </div>
+        <div class="col-sm-6">
+          <div class="btn-group" style="width: 100%">
+            <button type="button" class="btn btn-primary btn-block"
+                    ng-disabled="tCtrl.nowMatching || ((tCtrl.templateCrop.br.x - tCtrl.templateCrop.tl.x) > 512) || (tCtrl.templateCrop.br.x - tCtrl.templateCrop.tl.x) < 1 || (tCtrl.templateCrop.br.y - tCtrl.templateCrop.tl.y) < 1"
+                    ng-click="tCtrl.postTemplate()">
+              <span class="glyphicon glyphicon-refresh spinning" ng-show="tCtrl.nowMatching"></span>
+              <span class="glyphicon glyphicon-refresh" ng-show="!tCtrl.nowMatching"></span>
+               Search
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div ng-show="activeTab == 'templates'" id="template-tab">
+    <div class="template-list">
+      <div class="media" ng-repeat="templ in tCtrl.templates | orderBy:'glyph'">
+        <div class="media-left">
+          <a href="">
+            <img class="media-object template-thumbnail" ng-src="{{tCtrl.apiBasePath}}/images/{{templ.image_id}}/crops?x1={{templ.x}}&y1={{templ.y}}&x2={{templ.x + templ.w}}&y2={{templ.y + templ.h}}">
+          </a>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading">Template {{templ.id}} {{ templ.glyph ? ' &ndash; "' + templ.glyph + '"' : "" }}</h4>
+          Position: ({{templ.x}}, {{templ.y}}), Size: {{templ.w}} x {{templ.h}}
+        </div>
+        <div class="media-right">
+          <div style="display: inline-block">
+            <button class="btn btn-default" ng-click="tCtrl.getTemplateMatches(templ)">Load</button>
+            <button class="btn btn-danger"  ng-click="tCtrl.deleteTemplate(templ)"><span class="glyphicon glyphicon-trash"></span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ul class="nav nav-tabs">
+    <li ng-repeat="(templateId, matches) in tCtrl.matches" ng-class="{active : templateId == tCtrl.activeTemplateId}">
+      <a ng-click="tCtrl.activeTemplateId = templateId">Templ. {{ templateId }}&nbsp;&nbsp;<button class="btn btn-default btn-xs" ng-click="tCtrl.removeTemplateMatches(templateId)">x</button></a>
+    </li>
+  </ul>
+  <div class="table-container">
+    <table class="table table-condensed table-hover">
+      <tr ng-repeat="match in tCtrl.matches[tCtrl.activeTemplateId] | filter:{image_id: tCtrl.document.id}" ng-click="tCtrl.panToMatch(match)">
+        <td>x: </td><td>{{match.x}}</td>
+        <td>y: </td><td>{{match.y}}</td>
+        <td>rank: </td><td>{{match.rank}}</td>
+        <td>score: </td><td>{{match.score}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="btn-group" style="width: 100%; margin-top: 10px;">
+  <a type="button" class="btn btn-default btn-block"
+     ng-disabled="!tCtrl.activeTemplateId ||
+                  (tCtrl.matches[tCtrl.activeTemplateId][0].hasOwnProperty('label_value') &&
+                   tCtrl.matches[tCtrl.activeTemplateId][0].label_value !== null)"
+     ng-if="$stateParams.collectionId"
+     ui-sref="active-learner.collection.learn({collectionId: $stateParams.collectionId, templateId: tCtrl.activeTemplateId})">
+    Detect Threshold {{(tCtrl.activeTemplateId) ? ("(Template " + tCtrl.activeTemplateId + ")") : ""}}
+  </a>
+  <a type="button" class="btn btn-default btn-block"
+     ng-disabled="!tCtrl.activeTemplateId ||
+                  (tCtrl.matches[tCtrl.activeTemplateId][0].hasOwnProperty('label_value') &&
+                   tCtrl.matches[tCtrl.activeTemplateId][0].label_value !== null)"
+     ng-if="!$stateParams.collectionId"
+     ui-sref="active-learner.document.learn({imageId: $stateParams.imageId, templateId: tCtrl.activeTemplateId})">
+    Detect Threshold {{(tCtrl.activeTemplateId) ? ("(Template " + tCtrl.activeTemplateId + ")") : ""}}
+  </a>
+</div>

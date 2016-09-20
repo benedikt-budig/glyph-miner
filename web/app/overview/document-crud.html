@@ -1,0 +1,113 @@
+<h3>Add new document</h3>
+<form class="form-horizontal" ng-submit="documentCRUD.newDocument()" name="documentCRUD.docFormElement">
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="inputTitle">Title</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputTitle" ng-model="documentCRUD.document.title" placeholder="Title">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="inputSubtitle">Subtitle</label>
+    <div class="col-sm-10">
+      <textarea class="form-control" rows="3" id="inputSubtitle" ng-model="documentCRUD.document.subtitle" placeholder="Subtitle"></textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="inputAuthor">Author</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputAuthor" ng-model="documentCRUD.document.author" placeholder="Author">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="inputYear">Year</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputYear" ng-model="documentCRUD.document.year" placeholder="Year">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="inputSignature">Signature</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputSignature" ng-model="documentCRUD.document.signature" placeholder="Signature">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="inputCollection">Collection</label>
+    <div class="col-sm-10">
+      <select class="form-control" id="inputCollection" ng-model="documentCRUD.docForm.collection" placeholder="Signature">
+        <option value="0" selected></option>
+        <option ng-repeat="collection in documentCRUD.collections" value="{{collection.id}}">{{collection.title}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">Image (color)</label>
+    <div class="col-sm-10 filechooser">
+      <button class="btn btn-default" ngf-select accept="image/*" ng-model="documentCRUD.docForm.imageColor">Select File</button> {{documentCRUD.docForm.imageColor[0].name}}
+    </div>
+    <!--<p class="help-block">Example block-level help text here.</p>-->
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">Image (b/w)</label>
+    <div class="col-sm-10 filechooser">
+      <button class="btn btn-default" ngf-select accept="image/*" ng-model="documentCRUD.docForm.imageBinarized">Select File</button> {{documentCRUD.docForm.imageBinarized[0].name}}
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-10 col-sm-offset-2">
+      <button type="submit" class="btn btn-primary btn-block"
+        ng-disabled="documentCRUD.docForm.imageColor[0] === undefined ||
+                     documentCRUD.docForm.imageBinarized[0] === undefined ||
+                     documentCRUD.document.title == '' ||
+                     documentCRUD.processingUpload">
+        <span class="glyphicon glyphicon-refresh spinning" ng-show="documentCRUD.processingUpload"></span>
+        Upload document
+      </button>
+    </div>
+  </div>
+</form>
+
+<hr>
+
+<h3>Add new collection</h3>
+<form class="form-horizontal" ng-submit="documentCRUD.newCollection()" name="documentCRUD.colFormElement">
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="collectionTitle">Title</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="collectionTitle" ng-model="documentCRUD.collection.title" placeholder="Title">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="collectionSubtitle">Subtitle</label>
+    <div class="col-sm-10">
+      <textarea class="form-control" rows="3" id="collectionSubtitle" ng-model="documentCRUD.collection.subtitle" placeholder="Subtitle"></textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="collectionAuthor">Author</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="collectionAuthor" ng-model="documentCRUD.collection.author" placeholder="Author">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="collectionYear">Year</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="collectionYear" ng-model="documentCRUD.collection.year" placeholder="Year">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="collectionSignature">Signature</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="collectionSignature" ng-model="documentCRUD.collection.signature" placeholder="Signature">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-10 col-sm-offset-2">
+      <button type="submit"
+              class="btn btn-primary btn-block"
+              ng-disabled="documentCRUD.collection.title === undefined ||
+                           documentCRUD.collection.title == ''">
+        Create collection
+      </button>
+    </div>
+  </div>
+</form>

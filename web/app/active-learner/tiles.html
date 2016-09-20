@@ -1,0 +1,64 @@
+<h2 ng-if="learnCtrl.template.glyph && !tileCtrl.showEndScreen">Searching for glyph: '{{learnCtrl.template.glyph}}'</h2>
+
+<hr>
+
+<div id="image-grid-container" ng-show="!tileCtrl.showEndScreen" ng-cloak>
+  <div class="row" ng-repeat="row in tileCtrl.currentBatch">
+    <div class="col-xs-4 img-col flipcard {{img.good ? 'flip' : ''}}" ng-repeat="img in row">
+       <div style="position: relative; text-align: center" class="noselect">
+         <div style="position: relative; display: inline-block;" ng-click="img.good = !img.good">
+           <img ng-src="{{img.path}}"   title="Image: {{img.image_id}} (Rank {{img.rank}}), Score: {{img.score}}" class="img-thumbnail front" draggable="false">
+           <img src="img/checkmark.png" title="Image: {{img.image_id}} (Rank {{img.rank}}), Score: {{img.score}}" class="img-thumbnail back" draggable="false">
+         </div>
+       </div>
+    </div>
+  </div>
+</div>
+
+<div ng-show="tileCtrl.showEndScreen">
+  <h2>Training finished</h2>
+  <p>We have now sampled enough data for this template.</p>
+</div>
+
+<hr>
+
+<div class="progress">
+  <div class="progress-bar progress-bar-striped" role="progressbar" 
+       style="width: {{tileCtrl.currentIteration * 10}}%"
+       ng-class="{'progress-bar-danger' : tileCtrl.currentIteration < 5, 
+                  'progress-bar-info'   : (tileCtrl.currentIteration >= 5 && tileCtrl.currentIteration < 8), 
+                  'progress-bar-success': tileCtrl.currentIteration >= 8}">
+  </div>
+</div>
+
+<hr>
+
+<div class="row" ng-show="!tileCtrl.showEndScreen">
+  <div class="col-sm-8 col-sm-offset-2">
+    <button type="button" class="btn btn-block btn-primary btn-custom" ng-click="tileCtrl.submitCurrentBatch(); tileCtrl.fixGridHeight();">
+      Next&nbsp;<span class="glyphicon glyphicon-chevron-right"></span>
+    </button>
+  </div>
+  <!--<div class="col-sm-3 col-sm-offset-1">
+    <button type="button" class="btn btn-block btn-custom" 
+            ng-class="{'disabled'   : tileCtrl.currentIteration < 5, 
+                       'btn-default': (tileCtrl.currentIteration >= 5 && tileCtrl.currentIteration < 8), 
+                       'btn-success': tileCtrl.currentIteration >= 8}" 
+            ng-click="tileCtrl.finishClassification();">
+      <span class="glyphicon glyphicon-ok"></span>&nbsp;Finish
+    </button>
+  </div>-->
+</div>
+
+<div class="row" ng-show="tileCtrl.showEndScreen">
+  <div class="col-sm-8 col-sm-offset-2">
+    <button type="button" class="btn btn-block btn-success btn-custom" ng-click="tileCtrl.finishClassification();">
+      <span class="glyphicon glyphicon-ok"></span>&nbsp;Back to Document Viewer
+    </button>
+  </div>
+  <!--<div class="col-sm-3 col-sm-offset-1">
+    <button type="button" class="btn btn-block btn-default btn-custom" ng-click="tileCtrl.showEndScreen = false; tileCtrl.submitCurrentBatch();">
+      Keep going
+    </button>
+  </div>-->
+</div>

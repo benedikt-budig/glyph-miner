@@ -1,0 +1,52 @@
+
+<div class="row main-row" ui-view="documentList">
+  <div class="col-sm-9 document-list">
+    <div class="row">
+      <!-- Display all collections -->
+      <div class="col-sm-3" ng-repeat="col in documentList.collections">
+        <div class="thumbnail">
+          <div ng-if="col.images.length > 0" class="collection-stack">
+            <img style="width: 80%; display: block;" ng-src="/thumbnails/thumb-{{image.web_path_color}}" ng-repeat="image in col.images | limitTo:3 | orderBy:'-id'">
+          </div>
+          <img ng-if="col.images.length == 0" style="width: 100%; display: block;" ng-src="img/emptyset.png">
+          <div class="caption">
+            <h3 title="{{ col.title }}">{{ col.title }}</h3>
+            <p><span class="label label-primary">Collection</span></p>
+            <p class="subtitle">{{ col.subtitle }}</p>
+            <p>{{ col.author }} &mdash;&nbsp;{{ col.year }}</p>
+            <div class="btn-group btn-group-justified">
+              <a ui-sref="viewer.collection({collectionId: col.id})"
+                 class="btn btn-default"
+                 ng-class="{'disabled': col.images.length == 0}"
+                 role="button">Select</a>
+              <a ui-sref="page-creator.collection({collectionId: col.id})"
+                 class="btn btn-default">Page Creator</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Display all remaining images -->
+      <div class="col-sm-3" ng-repeat="doc in documentList.documents | filter: {path: '!null', collection_count: 0}">
+        <div class="thumbnail">
+          <img style="width: 100%; display: block;" ng-src="/thumbnails/thumb-{{ doc.web_path_color }}">
+          <div class="caption">
+            <h3 title="{{ doc.title }}">{{ doc.title }}</h3>
+            <p class="subtitle">{{ doc.subtitle }}</p>
+            <p>{{ doc.author }} &mdash;&nbsp;{{ doc.year }}</p>
+            <div class="btn-group btn-group-justified">
+              <a ui-sref="viewer.document({ imageId: doc.id })"
+                 class="btn btn-default"
+                 role="button">Select</a>
+              <a ui-sref="page-creator.document({ imageId: doc.id })"
+                 class="btn btn-default">Page Creator</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls for creating new documents and collections -->
+  <div class="col-sm-3 document-crud" ui-view="documentCRUD"></div>
+</div>

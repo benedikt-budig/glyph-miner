@@ -1,0 +1,44 @@
+<h2>Documents</h2>
+<div class="document-list">
+  <div class="media" ng-repeat="collection in documentColumn.collections | orderBy:'id'">
+    <div ng-if="collection.images.length > 0" class="media-left collection-stack">
+      <img class="media-object image-thumbnail" ng-src="/thumbnails/thumb-{{image.web_path_color}}" ng-repeat="image in collection.images | limitTo:3 | orderBy:'-id'">
+    </div>
+    <div ng-if="collection.images.length == 0" class="media-left">
+      <img class="media-object image-thumbnail" ng-src="/img/emptyset.png">
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading">{{ collection.title }}</h4>
+      {{collection.author}} &ndash; {{collection.year}}<br>
+      <span class="label label-primary">Collection</span>
+      <button type="button" class="btn btn-default btn-xs" ui-sref="page-creator.collection({ collectionId: collection.id })">Page Creator</button>
+    </div>
+    <div class="media-right">
+      <div style="display: inline-block">
+        <button class="btn"
+                ng-class="{'active' : collection.selected, 'btn-primary' : collection.selected, 'btn-default' : !collection.selected }"
+                ng-click="documentColumn.toggleCollectionSelection(collection)">Select</button>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="media" ng-repeat="document in documentColumn.documents | filter: {path: '!null', collection_count: 0} | orderBy:'id'">
+    <div class="media-left">
+      <img class="media-object image-thumbnail" ng-src="/thumbnails/thumb-{{document.web_path_color}}">
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading">{{ document.title }}</h4>
+      Size: {{document.w}} x {{document.h}}<br>
+      <button type="button" class="btn btn-default btn-xs" ui-sref="page-creator.document({ imageId: document.id })">Page Creator</button>
+    </div>
+    <div class="media-right">
+      <div style="display: inline-block">
+        <button class="btn"
+                ng-class="{'active' : document.selected, 'btn-primary' : document.selected, 'btn-default' : !document.selected }"
+                ng-click="documentColumn.toggleDocumentSelection(document)">Select</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+*.pyc
+
+server/images
+server/templates
+server/match
+
+web/thumbnails
+web/tiles
+web/synthetic_pages
+

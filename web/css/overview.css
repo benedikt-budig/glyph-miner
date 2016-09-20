@@ -1,0 +1,68 @@
+p.subtitle {
+  height: 100px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.caption h3 {
+  width: 100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  display:inline-block;
+}
+
+.caption {
+  height: 270px;
+  display: flex;
+  flex-direction: column;
+}
+
+.glyphicon.spinning {
+  animation: spin 1s infinite linear;
+  -webkit-animation: spin2 1s infinite linear;
+}
+
+@keyframes spin {
+  from { transform: scale(1) rotate(0deg);}
+  to { transform: scale(1) rotate(360deg);}
+}
+
+@-webkit-keyframes spin2 {
+  from { -webkit-transform: rotate(0deg);}
+  to { -webkit-transform: rotate(360deg);}
+}
+
+.document-list, .document-crud {
+  overflow-y: scroll;
+  height: 100%
+}
+
+.container-fluid {
+  height: calc(100% - 72px);
+}
+
+.main-row {
+  height: calc(100% - 25px);
+}
+
+.filechooser {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.collection-stack img {
+  width: 80%;
+  box-shadow: -1px 0px 3px 0px rgba(0,0,0,0.5)
+}
+
+.collection-stack img:nth-child(2) {
+  margin-top: -43%;
+  margin-left: 10%;
+}
+
+.collection-stack img:nth-child(3) {
+  margin-top: -42%;
+  margin-left: 20%;
+}

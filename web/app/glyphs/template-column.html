@@ -1,0 +1,35 @@
+<h2>Templates</h2>
+<div class="template-list">
+  <div class="media" ng-repeat="templ in templateColumn.templates | orderBy:['glyph', 'id'] | filter:{glyph:charFilter}">
+    <div class="media-left">
+      <img class="media-object template-thumbnail"
+           ng-src="{{templateColumn.apiBasePath}}/images/{{templ.image_id}}/crops?x1={{templ.x}}&y1={{templ.y}}&x2={{templ.x + templ.w}}&y2={{templ.y + templ.h}}">
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading">Template {{templ.id}} {{ templ.glyph ? ' &ndash; "' + templ.glyph + '"' : "" }}</h4>
+      Position: ({{templ.x}}, {{templ.y}}), Size: {{templ.w}} x {{templ.h}}<br/>
+      <i>{{templ.origin_collection_id ? templ.origin_collection_title : templ.image_title}}</i>
+    </div>
+    <div class="media-right">
+      <div style="display: inline-block">
+        <button class="btn"
+                ng-class="{'active' : templ.selected, 'btn-primary' : templ.selected, 'btn-default' : !templ.selected }"
+                ng-click="templateColumn.toggleSelection(templ)">Select</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <!--<div style="flex-shrink: 0;">
+    <div class="btn-group" role="group">
+      <button class="btn btn-default" ng-click="selectAllTemplates()">Select all</button>
+      <button class="btn btn-default" ng-click="deselectAllTemplates()">Deselect all</button>
+    </div>
+  </div>-->
+  <div>
+    <input type="text" class="form-control" ng-model="charFilter" ng-init="charFilter = ''" placeholder="Filter templates by character...">
+  </div>
+</div>

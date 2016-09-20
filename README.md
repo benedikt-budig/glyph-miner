@@ -102,7 +102,7 @@ Import the database structure into the new database:
     mysql -u glyphminer -p glyphminer < server/schema.sql
 
 You can configure the credentials that Glyph Miner will use in `server/server.py`,
-line 48.
+line 49.
 
 ### Starting it up
 You can start the python server using uwsgi using the following command:

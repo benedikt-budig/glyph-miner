@@ -1,0 +1,140 @@
+<div class="row" style="height: 100%;">
+  <div class="col-md-5 col-limited">
+    <h2>Typesetting</h2>
+    <div class="row">
+      <div class="col-md-5">
+        <canvas id="templateCanvas" style="border: 1px solid black" width="200" height="200"></canvas>
+      </div>
+
+      <div class="col-md-7">
+        <div class="form-horizontal number-form">
+          <div class="form-group">
+            <label for="inputBaseline" class="col-sm-offset-1 col-sm-4 control-label">Baseline</label>
+            <div class="col-sm-7">
+              <div class="input-group">
+                <input type="number" class="form-control" id="inputBaseline" ng-model="typesettingColumn.template.baseline"
+                       ng-change="typesettingColumn.baselineChange(typesettingColumn.template.baseline)">
+                <div class="input-group-addon">px</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputLeftCrop" class="col-sm-offset-1 col-sm-4 control-label">Left crop</label>
+            <div class="col-sm-7">
+              <div class="input-group">
+                <input type="number" class="form-control" id="inputLeftCrop" ng-model="typesettingColumn.template.leftcrop"
+                       ng-change="typesettingColumn.leftcropChange(typesettingColumn.template.leftcrop)">
+                <div class="input-group-addon">px</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputRightCrop" class="col-sm-offset-1 col-sm-4 control-label">Right crop</label>
+            <div class="col-sm-7">
+              <div class="input-group">
+                <input type="number" class="form-control" id="inputRightCrop" ng-model="typesettingColumn.template.rightcrop"
+                       ng-change="typesettingColumn.rightcropChange(typesettingColumn.template.rightcrop)">
+                <div class="input-group-addon">px</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-5 col-sm-7">
+              <button class="btn btn-default btn-block" ng-disabled="!typesettingColumn.template.id" ng-click="typesettingColumn.saveParams()"><span class="glyphicon glyphicon-save"></span> Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-horizontal number-form">
+          <div class="form-group">
+            <label for="inputLetterSpacing" class="col-sm-6 control-label">Letter Spacing</label>
+            <div class="col-sm-6">
+              <div class="input-group">
+                <input type="number" class="form-control" id="inputLetterSpacing" ng-model="typesettingColumn.letterSpacing" ng-change="typesettingColumn.updateDrawing()">
+                <div class="input-group-addon">px</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputWordSpacing" class="col-sm-6 control-label">Word Spacing</label>
+            <div class="col-sm-6">
+              <div class="input-group">
+                <input type="number" class="form-control" id="inputWordSpacing" ng-model="typesettingColumn.wordSpacing" ng-change="typesettingColumn.updateDrawing()">
+                <div class="input-group-addon">px</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputLeading" class="col-sm-6 control-label">Baseline Skip</label>
+            <div class="col-sm-6">
+              <div class="input-group">
+                <input type="number" class="form-control" id="inputLeading" ng-model="typesettingColumn.leading" ng-change="typesettingColumn.updateDrawing()">
+                <div class="input-group-addon">px</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-horizontal number-form">
+          <div class="form-group">
+            <label for="inputHorizontalMargin" class="col-sm-6 control-label">Horizontal Margin</label>
+            <div class="col-sm-6">
+              <div class="input-group">
+                <input type="number" class="form-control" id="inputHorizontalMargin" ng-model="typesettingColumn.horizontalMargin" ng-change="typesettingColumn.updateDrawing()">
+                <div class="input-group-addon">px</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputVerticalMargin" class="col-sm-6 control-label">Vertical Margin</label>
+            <div class="col-sm-6">
+              <div class="input-group">
+                <input type="number" class="form-control" id="inputVerticalMargin" ng-model="typesettingColumn.verticalMargin" ng-change="typesettingColumn.updateDrawing()">
+                <div class="input-group-addon">px</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <textarea class="form-control" rows="3" placeholder="Enter text to be typeset" ng-model="typesettingColumn.text" ng-change="typesettingColumn.updateDrawing()"></textarea>
+
+    <hr>
+
+    <div class="btn-toolbar" role="toolbar">
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default fileUpload" fileread="typesettingColumn.textFile"><span>Upload Text</span><input type="file"></button>
+      </div>
+      <span ng-show="typesettingColumn.textFile.length" class="toolbarInfo">Text length: {{ typesettingColumn.textFile.length }} chars</span>
+
+      <div class="btn-group pull-right" role="group">
+        <button type="button"
+                class="btn btn-primary"
+                ng-disabled="typesettingColumn.textFile == null || typesettingColumn.obtainingPages || typesettingColumn.obtainingLines"
+                ng-click="typesettingColumn.requestSyntheticPages(true)">
+                <span class="glyphicon glyphicon-refresh spinning" ng-show="typesettingColumn.obtainingLines"></span>
+                <span class="glyphicon glyphicon-align-left" ng-show="!typesettingColumn.obtainingLines"></span> Create Lines
+        </button>
+        <button type="button"
+                class="btn btn-primary"
+                ng-disabled="typesettingColumn.textFile == null || typesettingColumn.obtainingPages || typesettingColumn.obtainingLines"
+                ng-click="typesettingColumn.requestSyntheticPages()">
+                <span class="glyphicon glyphicon-refresh spinning" ng-show="typesettingColumn.obtainingPages"></span>
+                <span class="glyphicon glyphicon-duplicate" ng-show="!typesettingColumn.obtainingPages"></span> Create Pages
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-7 col-limited" ui-view="pageColumn"></div>
+</div>

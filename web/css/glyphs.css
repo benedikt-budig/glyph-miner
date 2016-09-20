@@ -1,0 +1,89 @@
+#glyphs-view {
+  height: calc(100% - 25px);
+}
+
+#glyphs-view .container-fluid {
+  height: calc(100% - 72px);
+}
+
+#glyphs-view .col-limited {
+  height: 100%;
+}
+
+#glyphs-view h2 {
+  margin-top: 0px;
+}
+
+#glyphs-view .media h4 {
+  word-break: break-word;
+}
+
+#glyphs-view .glyph-list h4 {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+}
+
+#glyphs-view .glyph-list .img-container {
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 15px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+#glyphs-view .glyph-list img {
+  border: 0;
+  transition: all .15s ease-in-out;
+  cursor: pointer;
+}
+
+#glyphs-view .glyph-list .faded {
+  opacity: 0.1;
+}
+
+#glyphs-view .document-list {
+  overflow-y: scroll;
+  height: calc(100% - 43px);
+}
+
+#glyphs-view .template-list, #glyphs-view .glyph-list {
+  overflow-y: scroll;
+  height: calc(100% - 119px);
+}
+
+#glyphs-view .media {
+  position: relative;
+  padding-right: 10px;
+  padding-top: 2px;
+}
+
+#glyphs-view .document-list .media-left {
+  width: 35%;
+}
+
+#glyphs-view .image-thumbnail {
+  width: 100%;
+}
+
+#glyphs-view img.template-thumbnail {
+  width: 40px;
+  height: auto;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+}
+
+#glyphs-view .collection-stack img {
+  width: 80%;
+  box-shadow: -1px 0px 3px 0px rgba(0,0,0,0.5)
+}
+
+#glyphs-view .collection-stack img:nth-child(2) {
+  margin-top: -41.5%;
+  margin-left: 10%;
+}
+
+#glyphs-view .collection-stack img:nth-child(3) {
+  margin-top: -41.5%;
+  margin-left: 20%;
+}
