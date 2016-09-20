@@ -1,0 +1,31 @@
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server ipv6only=on;
+
+	root /opt/glyph-miner/web;
+	index index.php index.html index.htm;
+
+	client_max_body_size 100M;
+
+	# Make site accessible from http://localhost/
+	server_name localhost;
+
+	location / {
+		try_files $uri $uri/ =404;
+	}
+
+	location /synthetic_pages/ {
+		if ($request_filename ~ "^.*/(.+\.png)$"){
+			set $fname $1;
+			add_header Content-Disposition 'attachment; filename="$fname"';
+		}
+	}
+
+	location /api/ {
+		root /opt/glyph-miner/server;
+		client_max_body_size 100M;
+		include uwsgi_params;
+		uwsgi_pass 127.0.0.1:9090;
+		uwsgi_read_timeout 300;
+ 	}
+}
