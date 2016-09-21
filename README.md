@@ -119,6 +119,12 @@ You can start the python server using uwsgi using the following command:
 
 `/usr/local/bin/uwsgi --socket 127.0.0.1:9090 --chdir /home/<username>/glyph-miner/server/ --wsgi-file /home/<username>/glyph-miner/server/server.py --master --processes 4 --threads 2`
 
+## Acknowledgements
+Special thanks go to [Dr. Thomas van Dijk](http://www1.informatik.uni-wuerzburg.de/en/staff/dijk_thomas_van/)
+for contributing his fast implementation for the template matching. In addition,
+I want to thank to Dr. Hans-Günter Schmidt and his team of the
+[Würzburg University Library](http://www.bibliothek.uni-wuerzburg.de/en/ub_infos/contact/departments/digitization_centre/)
+ for their generous support.
 
 ## License
 Copyright (C) 2016 Benedikt Budig
