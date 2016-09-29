@@ -24,6 +24,8 @@ and the [Kallimachos](http://kallimachos.de/) project.
 Glyph Miner is available through Docker for easy deployment and testing. Make sure
 you have installed a recent version of [Docker](https://www.docker.com/).
 
+[![](https://images.microbadger.com/badges/image/glyphminer/glyphminer.svg)](https://microbadger.com/images/glyphminer/glyphminer "Get your own image badge on microbadger.com")
+
 ### Recommended: Using Docker Hub
 This is the fastest way to get the system running on your machine. Just pull our
 official build from Docker Hub:
